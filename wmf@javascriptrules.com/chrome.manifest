@@ -1,0 +1,2 @@
+content     wmf     chrome/content/
+overlay     chrome://yslow/content/browser.xul      chrome://wmf/content/browser.xul
