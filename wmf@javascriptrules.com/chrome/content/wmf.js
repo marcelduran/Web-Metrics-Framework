@@ -512,79 +512,97 @@ YSLOW.WMF.generateRule = function (rule, type) {
 // lint rules
 YSLOW.WMF.rules = {
     resources: function () {
-        return YSLOW.WMF.get('doc', 'count') +
-            YSLOW.WMF.get('js', 'count') +
-            YSLOW.WMF.get('css', 'count') +
-            YSLOW.WMF.get('iframe', 'count') +
-            YSLOW.WMF.get('flash', 'count') +
-            YSLOW.WMF.get('cssimage', 'count') +
-            YSLOW.WMF.get('image', 'count') +
-            YSLOW.WMF.get('favicon', 'count') +
-            YSLOW.WMF.get('xhr', 'count') +
-            YSLOW.WMF.get('font', 'count');
+        var get = YSLOW.WMF.get;
+
+        return get('doc', 'count') +
+            get('js', 'count') +
+            get('css', 'count') +
+            get('iframe', 'count') +
+            get('flash', 'count') +
+            get('cssimage', 'count') +
+            get('image', 'count') +
+            get('favicon', 'count') +
+            get('xhr', 'count') +
+            get('font', 'count');
     },
     gets: function () {
-        return YSLOW.WMF.rules.resources() +
-            YSLOW.WMF.get('redirect', 'count');
+        var wmf = YSLOW.WMF;
+
+        return wmf.rules.resources() + wmf.get('redirect', 'count');
     },
     hosts: function () {
         return YSLOW.WMF.componentsSummary.documentHosts.count;
     },
     resourcesPerHost: function () {
-        return YSLOW.WMF.rules.resources() / YSLOW.WMF.rules.hosts();
+        var rules = YSLOW.WMF.rules;
+
+        return rules.resources() / rules.hosts();
     },
     networkSize: function () {
-        return YSLOW.WMF.get('doc', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('js', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('css', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('iframe', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('flash', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('cssimage', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('image', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('favicon', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('xhr', ['sizeCompressed', 'headerSize']) +
-            YSLOW.WMF.get('redirect', ['sizeCompressed', 'headerSize']) + 
-            YSLOW.WMF.get('font', ['sizeCompressed', 'headerSize']);
+        var get = YSLOW.WMF.get;
+
+        return get('doc', ['sizeCompressed', 'headerSize']) +
+            get('js', ['sizeCompressed', 'headerSize']) +
+            get('css', ['sizeCompressed', 'headerSize']) +
+            get('iframe', ['sizeCompressed', 'headerSize']) +
+            get('flash', ['sizeCompressed', 'headerSize']) +
+            get('cssimage', ['sizeCompressed', 'headerSize']) +
+            get('image', ['sizeCompressed', 'headerSize']) +
+            get('favicon', ['sizeCompressed', 'headerSize']) +
+            get('xhr', ['sizeCompressed', 'headerSize']) +
+            get('redirect', ['sizeCompressed', 'headerSize']) + 
+            get('font', ['sizeCompressed', 'headerSize']);
     },
     documentSize: function () {
-        return YSLOW.WMF.get('doc', 'size') +
-            YSLOW.WMF.get('js', 'size') +
-            YSLOW.WMF.get('css', 'size') +
-            YSLOW.WMF.get('iframe', 'size') +
-            YSLOW.WMF.get('flash', 'size') +
-            YSLOW.WMF.get('cssimage', 'size') +
-            YSLOW.WMF.get('image', 'size') +
-            YSLOW.WMF.get('favicon', 'size') +
-            YSLOW.WMF.get('xhr', 'size') +
-            YSLOW.WMF.get('redirect', 'size') + 
-            YSLOW.WMF.get('font', 'size');
+        var get = YSLOW.WMF.get;
+
+        return get('doc', 'size') +
+            get('js', 'size') +
+            get('css', 'size') +
+            get('iframe', 'size') +
+            get('flash', 'size') +
+            get('cssimage', 'size') +
+            get('image', 'size') +
+            get('favicon', 'size') +
+            get('xhr', 'size') +
+            get('redirect', 'size') + 
+            get('font', 'size');
     },
     zippableSize: function () {
-        return YSLOW.WMF.get('doc', 'zippableSize') +
-            YSLOW.WMF.get('js', 'zippableSize') +
-            YSLOW.WMF.get('css', 'zippableSize') +
-            YSLOW.WMF.get('xhr', 'zippableSize') +
-            YSLOW.WMF.get('redirect', 'zippableSize') + 
-            YSLOW.WMF.get('font', 'zippableSize');
+        var get = YSLOW.WMF.get;
+
+        return get('doc', 'zippableSize') +
+            get('js', 'zippableSize') +
+            get('css', 'zippableSize') +
+            get('xhr', 'zippableSize') +
+            get('redirect', 'zippableSize') + 
+            get('font', 'zippableSize');
     },
     unzippedSize: function () {
-        return YSLOW.WMF.get('doc', 'unzippedSize') +
-            YSLOW.WMF.get('js', 'unzippedSize') +
-            YSLOW.WMF.get('css', 'unzippedSize') +
-            YSLOW.WMF.get('xhr', 'unzippedSize') +
-            YSLOW.WMF.get('redirect', 'unzippedSize') + 
-            YSLOW.WMF.get('font', 'unzippedSize');
+        var get = YSLOW.WMF.get;
+
+        return get('doc', 'unzippedSize') +
+            get('js', 'unzippedSize') +
+            get('css', 'unzippedSize') +
+            get('xhr', 'unzippedSize') +
+            get('redirect', 'unzippedSize') + 
+            get('font', 'unzippedSize');
     },
     zippedRatio: function () {
-        return (1 - YSLOW.WMF.rules.unzippedSize() / YSLOW.WMF.rules.zippableSize()) * 100;
+        var rules = YSLOW.WMF.rules,
+            zippableSize = rules.zippableSize();
+
+        return zippableSize ? ((1 - rules.unzippedSize() / zippableSize) * 100) : 100;
     },
     images: function () {
-        return YSLOW.WMF.get('cssimage', 'count') +
-            YSLOW.WMF.get('image', 'count');
+        var get = YSLOW.WMF.get;
+
+        return get('cssimage', 'count') + get('image', 'count');
     },
     imageSize: function () {
-        return YSLOW.WMF.get('cssimage', 'size') +
-            YSLOW.WMF.get('image', 'size');
+        var get = YSLOW.WMF.get;
+
+        return get('cssimage', 'size') + get('image', 'size');
     },
     scripts: function () {
         return YSLOW.WMF.get('js', 'count');
@@ -618,13 +636,19 @@ YSLOW.WMF.rules = {
         return YSLOW.WMF.rules.combinableTypes('css');
     },
     kbPerHost: function () {
-        return YSLOW.WMF.rules.networkSize() / YSLOW.WMF.rules.hosts();
+        var rules = YSLOW.WMF.rules;
+
+        return rules.networkSize() / rules.hosts();
     },
     kbPerGet: function () {
-        return YSLOW.WMF.rules.networkSize() / YSLOW.WMF.rules.gets();
+        var rules = YSLOW.WMF.rules;
+
+        return rules.networkSize() / rules.gets();
     },
     getsPerHost: function () {
-        return YSLOW.WMF.rules.gets() / YSLOW.WMF.rules.hosts();
+        var rules = YSLOW.WMF.rules;
+
+        return rules.gets() / rules.hosts();
     }
 };
 
