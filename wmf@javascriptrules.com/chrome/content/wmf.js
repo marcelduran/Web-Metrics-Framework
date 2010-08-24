@@ -456,7 +456,13 @@ YSLOW.WMF.genericLint = function (doc, cset, config) {
             }
             score = 100 - ((center + (val - comp) / ((top - comp) || 1)) * 10);
             perc = parseInt(Math.round(100 - score) / 10, 10) * 10;
+
+            // normalize edge cases
+            perc = ((perc < 0) ? 0 : (perc > 100 ? 100 : perc));
         }
+
+        // normalize edge cases
+        score = ((score < 0) ? 0 : (score > 100 ? 100 : Math.round(score)));
 
         // build output message
         msg = 'Total: <span style="color:' + color + ';">' + (k ? yu.kbSize(sum) : (parseInt(sum, 10) === sum ? sum : sum.toFixed(2))) + (p ? '%' : '') + '</span>';
@@ -465,10 +471,10 @@ YSLOW.WMF.genericLint = function (doc, cset, config) {
         if (percs) {
             msg += '<br>Percentile: <span style="color:black;">' + (perc === 0 ? 'Min' : perc === 50 ? 'Median' : perc === 100 ? 'Max' : perc) + '</span>';
         }
-        msg += '<br>Score: <span style="color:black;">' + Math.round(score) + '</span>';
+        msg += '<br>Score: <span style="color:black;">' + score + '</span>';
 
         return {
-            score: (score < 0 ? 0 : score),
+            score: score,
             message: msg
         };
     } catch (e) {
@@ -531,7 +537,9 @@ YSLOW.WMF.rules = {
         return wmf.rules.resources() + wmf.get('redirect', 'count');
     },
     hosts: function () {
-        return YSLOW.WMF.componentsSummary.documentHosts.count;
+        var cs = YSLOW.WMF.componentsSummary;
+        
+        return cs.documentHosts && cs.documentHosts.count || 0;
     },
     resourcesPerHost: function () {
         var rules = YSLOW.WMF.rules;
