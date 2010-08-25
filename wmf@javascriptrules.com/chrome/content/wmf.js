@@ -154,7 +154,7 @@ YSLOW.WMF.metrics = {
     },
     kbPerHost: {
         name: 'KB Per Host',
-        category: ['Resources', 'Newtwork', 'Hosts'],
+        category: ['Resources', 'Network', 'Hosts'],
         top: 37.18,
         all: 45.69,
         description: 'Average size transferred over the network per host, including HTTP headers. If resources were compressed, this would use the compressed size.',
@@ -390,18 +390,24 @@ YSLOW.WMF.genComponentsSummary = function (cset) {
  * return - value from type or sum of [values]
  */
 YSLOW.WMF.get = function (type, value) {
-    var t = YSLOW.WMF.componentsSummary.types[type],
-        sum = 0;
+    try {
+        var i, len,
+            t = YSLOW.WMF.componentsSummary.types[type],
+            sum = 0;
 
-    if (value instanceof Array && t) {
-        value.forEach(function (v) {
-            sum += t[v] || 0;
-        });
-        
-        return sum;
+        if (value instanceof Array && t) {
+            for (i = 0, len = value.length; i < len; i+= 1) {
+                sum += t[value[i]] || 0;
+            }
+            
+            return sum;
+        }
+
+        return t && t[value] || 0;
+    } catch (e) {
+        Firebug.Console.log(e);
+        return 0;
     }
-
-    return t && t[value] || 0;
 };
 
 /* generic lint function */
@@ -479,6 +485,10 @@ YSLOW.WMF.genericLint = function (doc, cset, config) {
         };
     } catch (e) {
         Firebug.Console.log(e);
+        return {
+            score: 0,
+            message: 'Error, please report it'
+        };
     }
 };
 
